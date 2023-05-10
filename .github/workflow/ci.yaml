@@ -1,0 +1,24 @@
+name: GitHub Pages deploy
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build
+      uses: # build your static site
+
+    - name: Deploy to GitHub Pages
+      uses: Cecilapp/GitHub-Pages-deploy@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        email: username@domain.tld
+        build_dir: _site
