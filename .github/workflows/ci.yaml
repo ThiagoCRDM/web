@@ -33,5 +33,4 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: erickzanardo/flutter-gh-pages@v6
         with:
-          workingDir: build/web
           webRenderer: canvaskit
