@@ -2,39 +2,37 @@ name: GitHub Pages deploy
 on:
   push:
     branches:
-    - master
-
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Build
-      uses: subosito/flutter-action@v1
-      with:
-        channel: 'dev'
-    - run: flutter config --enable-web
-    - run: flutter pub get
-    - run: flutter build web --release
-    - run: |
-        cd build/web
-        git init
-        git config --global user.email "thiagocesarmata@gmail.com"
-        git config --global user.name "Thiago Cesar" 
-        git status
-        git remote add origin https://${{secrets.commit_secret}}@github.com/ThiagoCRDM/web.git
-        git checkout -b gh-pages
-        git add --all
-        git commit -m "update"
-        git push origin gh-pages -f
+      - name: Build
+        uses: subosito/flutter-action@v1
+        with:
+          channel: 'dev'
+      - run: flutter config --enable-web
+      - run: flutter pub get
+      - run: flutter build web --release
+      - run: |
+          cd build/web
+          git init
+          git config --global user.email "thiagocesarmata@gmail.com"
+          git config --global user.name "Thiago Cesar" 
+          git status
+          git remote add origin https://${{secrets.commit_secret}}@github.com/ThiagoCRDM/web.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "update"
+          git push origin gh-pages -f
 
-    - name: Deploy to GitHub Pages
-      uses: Cecilapp/GitHub-Pages-deploy@v3
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to GitHub Pages
+        uses: Cecilapp/GitHub-Pages-deploy@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #with:
       #  email: username@domain.tld
       #  build_dir: _site
